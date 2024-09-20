@@ -1,6 +1,21 @@
-import Image from "next/image";
-import styles from "./page.module.scss";
+import { getAllRecipesAction } from "@/actions/recipe";
+import "./page.scss";
 
-export default function Home() {
-	return <main></main>;
+export const revalidate = 10;
+
+export default async function Home() {
+	let recipes = (await getAllRecipesAction()).data;
+
+	return (
+		<main>
+			<div className="recipes">
+				{recipes.map((recipe) => (
+					<div className="recipe" key={recipe.id}>
+						<img src="/img/katsudon.jpg" />
+						<h5>{recipe.name}</h5>
+					</div>
+				))}
+			</div>
+		</main>
+	);
 }

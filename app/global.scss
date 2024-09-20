@@ -1,0 +1,41 @@
+$white: #ffffff;
+$gray: #999999;
+
+$primary: #1a1a1a;
+$primary-light: #1f1f1f;
+
+$secondary: #6e07f3;
+
+$input: #33323233;
+
+$xxl: "only screen and (max-width : 1400px)";
+$xl: "only screen and (max-width : 1200px)";
+$lg: "only screen and (max-width : 992px)";
+$md: "only screen and (max-width : 768px)";
+$sm: "only screen and (max-width : 576px)";
+$xs: "only screen and (max-width : 0px)";
+
+body {
+	color: $white;
+	background-color: #1a1a1a;
+}
+
+.btn {
+	color: $white;
+	padding: 5px;
+	background-color: $primary-light;
+	border-radius: 5px;
+	border: 1px solid transparentize($secondary, 0.6);
+
+	&:hover {
+		cursor: pointer;
+		background-color: $secondary;
+		transition: background-color 0.2s ease;
+	}
+}
+
+.toaster {
+	margin-top: 45px;
+	background-color: $primary-light !important;
+	color: $white !important;
+}
