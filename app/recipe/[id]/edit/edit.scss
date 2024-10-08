@@ -1,0 +1,192 @@
+@import "/app/global";
+
+.recipe-edit {
+	display: flex;
+	gap: 40px;
+	padding: 0 20px;
+
+	h3 {
+		margin: 10px 0px 10px 0px;
+	}
+
+	&-info {
+		width: 450px;
+		padding: 25px;
+		background-color: $primary-light;
+		border-radius: 25px;
+
+		> div {
+			display: flex;
+			flex-direction: column;
+
+			label {
+				margin-bottom: 5px;
+			}
+		}
+	}
+
+	&-steps {
+		position: relative;
+		width: 100%;
+		background-color: $primary-light;
+		padding: 0 25px;
+		border-radius: 25px;
+	}
+
+	&-save {
+		position: absolute;
+		top: 25px;
+		right: 25px;
+		padding: 10px 15px;
+		border-radius: 25px;
+	}
+
+	.recipe {
+		&-img {
+			overflow: hidden;
+			position: relative;
+			height: 150px;
+			border-radius: 25px;
+
+			img {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 100%;
+				height: auto;
+			}
+		}
+
+		&-name {
+			input {
+				margin-bottom: 0;
+			}
+		}
+
+		&-servings {
+			display: flex;
+
+			.counter {
+				display: grid;
+				grid-template-columns: auto max-content max-content;
+				gap: 10px;
+
+				&-btn {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border: white 1px solid;
+					width: 19px;
+				}
+			}
+
+			input {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.column {
+		display: flex;
+		flex-direction: row;
+		padding: 10px;
+		border: 1px solid $gray;
+		border-radius: 10px;
+		margin-top: 10px;
+
+		&-draggable {
+			margin-left: -6px;
+
+			&-icon {
+				color: $gray;
+			}
+		}
+
+		&-order {
+			color: $gray;
+			font-size: 1.1rem;
+			font-weight: 400;
+			padding: 10px 10px 15px 0;
+		}
+
+		&-name {
+			margin-top: 2px;
+			width: 90%;
+			height: 25px;
+		}
+
+		&-item {
+			width: 75%;
+		}
+
+		&-add {
+			margin-top: 25px;
+			width: 100%;
+		}
+
+		& ~ .column {
+			margin-top: 35px;
+		}
+
+		.btn {
+			width: 80%;
+		}
+	}
+
+	.step {
+		display: flex;
+		flex-direction: row;
+		padding: 10px;
+		border: 1px solid $gray;
+		border-radius: 10px;
+		margin-top: 10px;
+
+		&-info {
+			width: 100%;
+			padding-right: 20px;
+
+			textarea {
+				resize: vertical;
+			}
+		}
+
+		&-draggable {
+			margin-left: -6px;
+
+			&-icon {
+				color: $gray;
+			}
+		}
+
+		&-order {
+			color: $gray;
+			font-size: 1.1rem;
+			font-weight: 400;
+			padding: 10px 10px 15px 0;
+		}
+
+		&-name {
+			margin-top: 2px;
+			width: 90%;
+			height: 25px;
+		}
+
+		&-item {
+			width: 100%;
+		}
+
+		&-add {
+			margin-top: 25px;
+			width: 100%;
+		}
+
+		& ~ .column {
+			margin-top: 35px;
+		}
+
+		.btn {
+			width: 80%;
+		}
+	}
+}

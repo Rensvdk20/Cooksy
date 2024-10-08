@@ -6,9 +6,9 @@ import { Fragment, useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
 import { createClient } from "@/utils/auth/client";
 
-const supabase = createClient();
-
 export default function Nav() {
+	const supabase = createClient();
+
 	const [user, setUser] = useState<Session | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 

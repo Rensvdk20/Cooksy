@@ -23,13 +23,13 @@ async function login(formData: FormData) {
 }
 
 export default function LoginPage() {
+	const router = useRouter();
+
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const router = useRouter();
-	const searchParams = useSearchParams();
-
 	useEffect(() => {
+		const searchParams = useSearchParams();
 		if (searchParams.get("register") === "success") {
 			toast.success("Account created successfully", {
 				id: "signup-success"

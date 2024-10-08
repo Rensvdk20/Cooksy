@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fredoka, Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import Nav from "./nav";
 
 import "./global.scss";
 
-const inter = Inter({ subsets: ["latin"] });
+const fredoka = Fredoka({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: "Cooksy",
@@ -19,7 +19,7 @@ export default async function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={fredoka.className}>
 				<Nav />
 				<Toaster
 					position="top-right"

@@ -1,5 +1,6 @@
 import { getAllRecipesAction } from "@/actions/recipe";
 import "./page.scss";
+import Link from "next/link";
 
 export const revalidate = 10;
 
@@ -10,10 +11,12 @@ export default async function Home() {
 		<main>
 			<div className="recipes">
 				{recipes.map((recipe) => (
-					<div className="recipe" key={recipe.id}>
-						<img src="/img/katsudon.jpg" />
-						<h5>{recipe.name}</h5>
-					</div>
+					<Link href={`/recipe/${recipe.id}/edit`} key={recipe.id}>
+						<div className="recipe">
+							<img src="/img/katsudon.jpg" />
+							<h5>{recipe.name}</h5>
+						</div>
+					</Link>
 				))}
 			</div>
 		</main>
