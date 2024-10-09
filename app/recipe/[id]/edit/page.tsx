@@ -1,19 +1,19 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { Ingredient, IngredientBlock, Recipe } from "@/schemas/recipe";
 import { v4 as uuidv4 } from "uuid";
 import "./edit.scss";
 
 import { RiDraggable, RiSave2Fill } from "react-icons/ri";
 import { ReactSortable } from "react-sortablejs";
-import { editRecipeAction, getFullRecipeByIdAction } from "@/actions/recipe";
+import { editRecipeAction, getRecipeByIdAction } from "@/actions/recipe";
 
 export default function Recipe({ params }: { params: { id: string } }) {
 	const [recipe, setRecipe] = useState<Recipe | null>(null);
 
 	async function getRecipeById(id: string) {
-		const response = await getFullRecipeByIdAction(id);
+		const response = await getRecipeByIdAction(id);
 
 		if (response.status === 200 && response.data) {
 			console.log(response.data);
@@ -39,7 +39,6 @@ export default function Recipe({ params }: { params: { id: string } }) {
 				id: uuidv4(),
 				name: "",
 				order: 0,
-				created_at: new Date(),
 				ingredient: []
 			} as IngredientBlock;
 
@@ -54,9 +53,7 @@ export default function Recipe({ params }: { params: { id: string } }) {
 		if (recipe && recipe.ingredient_block) {
 			const newIngredient = {
 				id: uuidv4(),
-				name: "",
-				created_at: new Date(),
-				created_by: ""
+				name: ""
 			} as Ingredient;
 
 			setRecipe({
@@ -73,9 +70,29 @@ export default function Recipe({ params }: { params: { id: string } }) {
 
 	async function editRecipe() {
 		if (recipe) {
-			console.log(recipe);
 			const response = await editRecipeAction(recipe);
-			console.log(response);
+
+			if (response.status === 200) {
+				console.log("Recipe edited successfully");
+			} else {
+				console.error("Error editing recipe");
+			}
+		}
+	}
+
+	function addStep() {
+		if (recipe) {
+			const newStep = {
+				id: uuidv4(),
+				name: "",
+				instructions: "",
+				order: 0
+			};
+
+			setRecipe({
+				...recipe,
+				steps: [...(recipe.steps || []), newStep]
+			});
 		}
 	}
 
@@ -159,9 +176,9 @@ export default function Recipe({ params }: { params: { id: string } }) {
 										{recipe.ingredient_block &&
 											recipe.ingredient_block[index].ingredient &&
 											recipe.ingredient_block[index].ingredient.map(
-												(ingredient) => (
+												(ingredient, index) => (
 													<input
-														key={ingredient.id}
+														key={index}
 														type="text"
 														className="column-item"
 														placeholder="Item"
@@ -202,55 +219,69 @@ export default function Recipe({ params }: { params: { id: string } }) {
 					<button className="btn column-add" onClick={addIngredientBlock}>
 						+ Add column
 					</button>
-
-					{/* <div className="column">
-					<input
-						type="text"
-						className="column-name"
-						placeholder="Name"
-						id="column-name"
-					/>
-					<input
-						type="text"
-						className="column-item"
-						placeholder="Item"
-						id="column-item"
-					/>
-					<input
-						type="text"
-						className="column-item"
-						placeholder="Item"
-						id="column-item"
-					/>
-					<button className="btn column-item-add">+ Add item</button>
-				</div> */}
 				</div>
 				<div className="recipe-edit-steps">
 					<h1>Steps</h1>
 					<button onClick={editRecipe} className="btn btn-secondary recipe-edit-save">
 						<RiSave2Fill /> Save
 					</button>
-					<div className="step">
-						<div className="step-draggable">
-							<RiDraggable className="step-draggable-icon" size={50} />
-						</div>
-						<div className="step-order">01</div>
-						<div className="step-info">
-							<input
-								type="text"
-								className="step-item"
-								placeholder="Name"
-								id="column-item"
-							/>
-							<textarea
-								className="step-item"
-								rows={5}
-								placeholder="Instructions"
-								id="column-item"
-							/>
-						</div>
-					</div>
-					<button className="btn step-add">+ Add step</button>
+					<ReactSortable
+						list={recipe.steps}
+						group="steps"
+						handle=".step-draggable-icon"
+						setList={(newState) => {
+							if (recipe) {
+								setRecipe({
+									...recipe,
+									steps: newState // update only the steps array
+								});
+							}
+						}}
+					>
+						{recipe.steps &&
+							recipe.steps.map((step, index) => (
+								<div key={step.id} className="step">
+									<div className="step-draggable">
+										<RiDraggable className="step-draggable-icon" size={50} />
+									</div>
+									<div className="step-order">
+										{(index + 1 < 10 ? "0" : "") + (index + 1)}
+									</div>
+									<div className="step-info">
+										<input
+											type="text"
+											className="step-item"
+											placeholder="Name"
+											id="column-item"
+											value={step.name}
+											onChange={(e) => {
+												if (recipe) {
+													recipe.steps![index].name = e.target.value;
+													setRecipe({ ...recipe });
+												}
+											}}
+										/>
+										<textarea
+											className="step-item"
+											rows={5}
+											placeholder="Instructions"
+											id="column-item"
+											value={step.instructions}
+											onChange={(e) => {
+												if (recipe) {
+													recipe.steps![index].instructions =
+														e.target.value;
+													setRecipe({ ...recipe });
+												}
+											}}
+										/>
+									</div>
+								</div>
+							))}
+					</ReactSortable>
+					<button className="btn step-add" onClick={addStep}>
+						+ Add step
+					</button>
 				</div>
 			</div>
 		);

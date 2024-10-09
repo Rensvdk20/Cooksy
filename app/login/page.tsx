@@ -4,7 +4,7 @@ import { createClient } from "@/utils/auth/client";
 import { useEffect, useState } from "react";
 
 import "./login.scss";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 async function login(formData: FormData) {
@@ -29,11 +29,11 @@ export default function LoginPage() {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		const searchParams = useSearchParams();
-		if (searchParams.get("register") === "success") {
-			toast.success("Account created successfully", {
-				id: "signup-success"
-			});
+		const searchParams = new URLSearchParams(window.location.search);
+		const register = searchParams.get("register");
+
+		if (register === "success") {
+			toast.success("Successfully registered");
 		}
 	}, []);
 
