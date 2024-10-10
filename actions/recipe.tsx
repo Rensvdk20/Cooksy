@@ -44,10 +44,13 @@ export async function getRecipeByIdAction(id: string): Promise<RecipeResponse> {
 					ingredient: {
 						_id: 0
 					}
+				},
+				steps: {
+					_id: 0
 				}
 			}
 		).lean();
-		console.log(recipe);
+
 		if (!recipe) {
 			return {
 				status: 404,
@@ -86,11 +89,15 @@ export async function editRecipeAction(recipe: Recipe): Promise<RecipeResponse> 
 			)
 		};
 
-		await RecipeModel.updateOne({ id: recipe.id }, filteredRecipe);
+		const result = await RecipeModel.updateOne({ id: recipe.id }, filteredRecipe, {
+			upsert: true
+		});
+
+		const message = result.upsertedCount ? "Recipe created" : "Recipe updated";
 
 		return {
 			status: 200,
-			message: "Recipe updated"
+			message: message
 		};
 	} catch (error: any) {
 		console.error("Error updating data:", error);

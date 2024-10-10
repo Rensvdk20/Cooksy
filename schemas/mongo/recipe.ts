@@ -14,7 +14,6 @@ const IngredientBlockSchema = new Schema<IngredientBlock>({
 		required: false
 	},
 	name: String,
-	order: Number,
 	ingredient: [IngredientSchema]
 });
 
@@ -26,8 +25,7 @@ const StepSchema = new Schema<Steps>({
 		required: false
 	},
 	name: String,
-	instructions: String,
-	order: Number
+	instructions: String
 });
 
 const RecipeSchema = new Schema<Recipe>({

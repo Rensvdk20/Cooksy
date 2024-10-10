@@ -1,6 +1,8 @@
 import { getAllRecipesAction } from "@/actions/recipe";
-import "./page.scss";
 import Link from "next/link";
+import { IoAddCircleOutline } from "react-icons/io5";
+
+import "./page.scss";
 
 export const revalidate = 10;
 
@@ -18,6 +20,11 @@ export default async function Home() {
 						</div>
 					</Link>
 				))}
+				<div>
+					<Link href={"/recipe"} className="recipe recipe-placeholder">
+						<IoAddCircleOutline size={60} />
+					</Link>
+				</div>
 			</div>
 		</main>
 	);

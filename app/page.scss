@@ -3,6 +3,8 @@
 .recipes {
 	display: flex;
 	gap: 40px;
+	margin-top: 20px;
+	padding: 0 20px;
 }
 
 .recipe {
@@ -31,5 +33,27 @@
 		user-select: none;
 		-webkit-user-drag: none;
 		-moz-user-select: none;
+	}
+
+	&-placeholder {
+		display: flex;
+		width: 350px;
+		height: 200px;
+		background-color: $primary-light;
+		justify-content: center;
+		align-items: center;
+
+		svg {
+			color: $gray;
+			transition: color 0.15s ease-in-out;
+		}
+
+		&:hover {
+			cursor: pointer;
+
+			svg {
+				color: lighten($gray, 20);
+			}
+		}
 	}
 }

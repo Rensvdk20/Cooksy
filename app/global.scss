@@ -58,6 +58,8 @@ a {
 
 	&-secondary {
 		border: 1px solid $gray;
+		padding: 10px 15px;
+		border-radius: 25px;
 
 		&:hover {
 			background-color: transparentize($gray, 0.6);
