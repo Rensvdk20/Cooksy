@@ -37,6 +37,7 @@ const RecipeSchema = new Schema<Recipe>({
 	},
 	name: String,
 	servings: Number,
+	img: String,
 	ingredient_block: [IngredientBlockSchema],
 	steps: [StepSchema],
 	created_at: Date,

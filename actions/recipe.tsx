@@ -7,7 +7,14 @@ import mongoConn from "@/utils/auth/mongo/mongoConn";
 export async function getAllRecipesAction(): Promise<RecipesResponse> {
 	try {
 		await mongoConn();
-		const recipes = await RecipeModel.find({}, { ingredient_block: 0 });
+		const recipes = await RecipeModel.find(
+			{},
+			{
+				_id: 0,
+				ingredient_block: 0,
+				steps: 0
+			}
+		).lean();
 
 		if (!recipes) {
 			return {
@@ -20,7 +27,7 @@ export async function getAllRecipesAction(): Promise<RecipesResponse> {
 		return {
 			status: 200,
 			message: "Recipes received",
-			data: recipes
+			data: recipes as unknown as Recipe[]
 		};
 	} catch (error: any) {
 		console.error("Error fetching data:", error);
@@ -89,6 +96,8 @@ export async function editRecipeAction(recipe: Recipe): Promise<RecipeResponse> 
 			)
 		};
 
+		console.log(filteredRecipe);
+
 		const result = await RecipeModel.updateOne({ id: recipe.id }, filteredRecipe, {
 			upsert: true
 		});
@@ -119,6 +128,31 @@ export async function createRecipeAction(recipe: Recipe): Promise<RecipeResponse
 		};
 	} catch (error: any) {
 		console.error("Error creating data:", error);
+		return {
+			status: 500,
+			message: error.message
+		};
+	}
+}
+
+export async function deleteRecipeAction(id: string): Promise<RecipeResponse> {
+	try {
+		await mongoConn();
+		const result = await RecipeModel.deleteOne({ id });
+
+		if (result.deletedCount === 0) {
+			return {
+				status: 404,
+				message: "Recipe not found"
+			};
+		}
+
+		return {
+			status: 200,
+			message: "Recipe deleted"
+		};
+	} catch (error: any) {
+		console.error("Error deleting data:", error);
 		return {
 			status: 500,
 			message: error.message

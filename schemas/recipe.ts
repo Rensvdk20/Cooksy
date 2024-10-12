@@ -2,6 +2,7 @@ export interface Recipe {
 	id?: string;
 	name: string;
 	servings: number;
+	img?: string;
 	ingredient_block?: IngredientBlock[];
 	steps?: Steps[];
 	created_at?: Date;

@@ -6,11 +6,18 @@ import { v4 as uuidv4 } from "uuid";
 import "./EditRecipe.scss";
 
 import { RiDraggable, RiSave2Fill } from "react-icons/ri";
+import { MdEdit } from "react-icons/md";
+import { FaTrashAlt } from "react-icons/fa";
 import { ReactSortable } from "react-sortablejs";
-import { editRecipeAction, getRecipeByIdAction } from "@/actions/recipe";
+import { deleteRecipeAction, editRecipeAction, getRecipeByIdAction } from "@/actions/recipe";
+import { CldImage, CldUploadWidget } from "next-cloudinary";
 
 export default function EditRecipe({ params }: { params: { id: string } }) {
 	const [recipe, setRecipe] = useState<Recipe | null>(null);
+
+	useEffect(() => {
+		getRecipeById(params.id);
+	}, []);
 
 	async function getRecipeById(id: string) {
 		if (id) {
@@ -42,10 +49,6 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 			]
 		});
 	}
-
-	useEffect(() => {
-		getRecipeById(params.id);
-	}, []);
 
 	function increaseServings() {
 		if (recipe) setRecipe({ ...recipe, servings: recipe.servings + 1 });
@@ -101,6 +104,18 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 		}
 	}
 
+	async function deleteRecipe() {
+		if (recipe) {
+			const response = await deleteRecipeAction(params.id);
+
+			if (response.status === 200) {
+				console.log("Recipe deleted successfully");
+			} else {
+				console.error("Error deleting recipe");
+			}
+		}
+	}
+
 	function addStep() {
 		if (recipe) {
 			const newStep = {
@@ -121,7 +136,47 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 			<div className="recipe-edit">
 				<div className="recipe-edit-info">
 					<div className="recipe-img">
-						<img src="/img/katsudon.jpg" alt="Recipe Image" />
+						{recipe.img ? (
+							<CldImage
+								src={recipe.img}
+								alt="Recipe image"
+								width={340}
+								height={150}
+								loading="eager"
+							/>
+						) : (
+							<img src="/img/katsudon.jpg" alt="Recipe Image" />
+						)}
+						<CldUploadWidget
+							uploadPreset="dpjhj6bt"
+							options={{
+								maxFiles: 1,
+								resourceType: "image",
+								cloudName: "do67csxma",
+								clientAllowedFormats: ["png", "webp", "jpeg", "jpg"],
+								folder: "Cooksy",
+								maxFileSize: 5000000
+							}}
+							onSuccess={(results) => {
+								if (typeof results.info !== "string") {
+									const id = results.info!.public_id;
+									console.log(id);
+									setRecipe({ ...recipe, img: id });
+								}
+							}}
+						>
+							{({ open }) => {
+								function openImageUploader(e: any) {
+									e.preventDefault();
+									open();
+								}
+								return (
+									<div onClick={openImageUploader} className="recipe-img-edit">
+										<MdEdit />
+									</div>
+								);
+							}}
+						</CldUploadWidget>
 					</div>
 
 					<div className="recipe-name">
@@ -243,10 +298,25 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 					</button>
 				</div>
 				<div className="recipe-edit-steps">
-					<h1>Steps</h1>
-					<button onClick={editRecipe} className="recipe-edit-save btn btn-secondary">
-						<RiSave2Fill /> Save
-					</button>
+					<div className="recipe-edit-steps-top">
+						<div className="steps-title">
+							<h1>Steps</h1>
+						</div>
+						<div className="steps-buttons">
+							<button
+								onClick={editRecipe}
+								className="recipe-edit-save btn btn-secondary"
+							>
+								<RiSave2Fill /> Save
+							</button>
+							<button
+								onClick={deleteRecipe}
+								className="recipe-edit-delete btn btn-secondary"
+							>
+								<FaTrashAlt /> Delete
+							</button>
+						</div>
+					</div>
 					<ReactSortable
 						list={recipe.steps}
 						group="steps"

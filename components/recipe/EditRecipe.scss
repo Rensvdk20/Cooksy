@@ -31,12 +31,10 @@
 		background-color: $primary-light;
 		padding: 0 25px;
 		border-radius: 25px;
-	}
 
-	&-save {
-		position: absolute;
-		top: 25px;
-		right: 25px;
+		&-top {
+			display: flex;
+		}
 	}
 
 	.recipe {
@@ -53,6 +51,19 @@
 				transform: translate(-50%, -50%);
 				width: 100%;
 				height: auto;
+			}
+
+			&-edit {
+				cursor: pointer;
+				display: flex;
+				position: absolute;
+				right: 15px;
+				bottom: 10px;
+				background-color: $primary-light;
+				padding: 5px;
+				border: 1px solid $gray;
+				border-radius: 5px;
+				opacity: 0.6;
 			}
 		}
 
@@ -130,6 +141,21 @@
 
 		.btn {
 			width: 80%;
+		}
+	}
+
+	.steps {
+		&-title {
+			margin-right: 20px;
+		}
+
+		&-buttons {
+			display: flex;
+			width: 100%;
+			height: fit-content;
+			justify-content: flex-end;
+			align-self: center;
+			gap: 10px;
 		}
 	}
 
