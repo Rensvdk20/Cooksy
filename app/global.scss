@@ -16,6 +16,8 @@ $sm: "only screen and (max-width : 576px)";
 $xs: "only screen and (max-width : 0px)";
 
 body {
+	margin: 0;
+	padding: 0;
 	color: $white;
 	background-color: #1a1a1a;
 	font-weight: 300;
@@ -62,7 +64,7 @@ a {
 		border-radius: 25px;
 
 		&:hover {
-			background-color: transparentize($gray, 0.6);
+			background-color: darken($gray, 30);
 		}
 	}
 }

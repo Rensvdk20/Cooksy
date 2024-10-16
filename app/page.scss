@@ -5,54 +5,54 @@
 	gap: 40px;
 	margin-top: 20px;
 	padding: 0 20px;
-}
 
-.recipe {
-	width: 350px;
-	height: 200px;
-	overflow: hidden;
-	position: relative;
-	border-radius: 25px;
-
-	h5 {
-		position: absolute;
-		bottom: 0;
-		margin: 0;
-		padding: 15px;
-		background-color: lighten($primary, 2.5);
-		border-radius: 0 25px 0 25px;
-	}
-
-	img {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 100%;
-		height: auto;
-		user-select: none;
-		-webkit-user-drag: none;
-		-moz-user-select: none;
-	}
-
-	&-placeholder {
-		display: flex;
+	.recipe {
 		width: 350px;
 		height: 200px;
-		background-color: $primary-light;
-		justify-content: center;
-		align-items: center;
+		overflow: hidden;
+		position: relative;
+		border-radius: 25px;
 
-		svg {
-			color: $gray;
-			transition: color 0.15s ease-in-out;
+		h5 {
+			position: absolute;
+			bottom: 0;
+			margin: 0;
+			padding: 15px;
+			background-color: lighten($primary, 2.5);
+			border-radius: 0 25px 0 25px;
 		}
 
-		&:hover {
-			cursor: pointer;
+		img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 100%;
+			height: auto;
+			user-select: none;
+			-webkit-user-drag: none;
+			-moz-user-select: none;
+		}
+
+		&-placeholder {
+			display: flex;
+			width: 350px;
+			height: 200px;
+			background-color: $primary-light;
+			justify-content: center;
+			align-items: center;
 
 			svg {
-				color: lighten($gray, 20);
+				color: $gray;
+				transition: color 0.15s ease-in-out;
+			}
+
+			&:hover {
+				cursor: pointer;
+
+				svg {
+					color: lighten($gray, 20);
+				}
 			}
 		}
 	}

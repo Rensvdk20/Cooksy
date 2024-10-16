@@ -29,7 +29,7 @@ export default function Home() {
 			{recipes && recipes.length > 0 && (
 				<div className="recipes">
 					{recipes.map((recipe) => (
-						<Link href={`/recipe/${recipe.id}/edit`} key={recipe.id}>
+						<Link href={`/recipe/${recipe.id}`} key={recipe.id}>
 							<div className="recipe">
 								{recipe.img ? (
 									<CldImage

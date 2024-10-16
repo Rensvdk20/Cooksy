@@ -143,6 +143,7 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 								width={340}
 								height={150}
 								loading="eager"
+								priority
 							/>
 						) : (
 							<img src="/img/katsudon.jpg" alt="Recipe Image" />
@@ -215,13 +216,12 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 					<ReactSortable
 						group="columns"
 						handle=".column-draggable-icon"
-						// animation={150}
 						list={recipe.ingredient_block}
 						setList={(newState) => {
 							if (recipe) {
 								setRecipe({
 									...recipe,
-									ingredient_block: newState // update only the ingredient_block array
+									ingredient_block: newState
 								});
 							}
 						}}
@@ -253,9 +253,9 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 										{recipe.ingredient_block &&
 											recipe.ingredient_block[index].ingredient &&
 											recipe.ingredient_block[index].ingredient.map(
-												(ingredient, index) => (
+												(ingredient, ingredientIndex) => (
 													<input
-														key={index}
+														key={ingredientIndex}
 														type="text"
 														className="column-item"
 														placeholder="Item"
@@ -263,21 +263,35 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 														value={ingredient.name}
 														onChange={(e) => {
 															if (recipe) {
-																recipe.ingredient_block![
+																const updatedIngredients = [
+																	...(recipe.ingredient_block![
+																		index
+																	].ingredient as Ingredient[])
+																];
+
+																// Update the ingredient's name
+																updatedIngredients[
+																	ingredientIndex
+																] = {
+																	...ingredient,
+																	name: e.target.value,
+																	id: ingredient.id!
+																};
+
+																// Update the ingredient block with the new ingredient array
+																const updatedIngredientBlocks = [
+																	...(recipe.ingredient_block as IngredientBlock[])
+																];
+																updatedIngredientBlocks[
 																	index
-																].ingredient?.map(
-																	(foundIngredient) => {
-																		if (
-																			ingredient.id ===
-																			foundIngredient.id
-																		) {
-																			ingredient.name =
-																				e.target.value;
-																		}
-																		return ingredient;
-																	}
-																);
-																setRecipe({ ...recipe });
+																].ingredient = updatedIngredients;
+
+																// Update the recipe with the modified ingredient block
+																setRecipe({
+																	...recipe,
+																	ingredient_block:
+																		updatedIngredientBlocks
+																});
 															}
 														}}
 													/>
@@ -325,7 +339,7 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 							if (recipe) {
 								setRecipe({
 									...recipe,
-									steps: newState // update only the steps array
+									steps: newState
 								});
 							}
 						}}
@@ -355,7 +369,13 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 										/>
 										<textarea
 											className="step-item"
-											rows={5}
+											rows={
+												recipe.steps![index].instructions.split("\n")
+													.length <= 5
+													? 5
+													: recipe.steps![index].instructions.split("\n")
+															.length + 3
+											}
 											placeholder="Instructions"
 											id="column-item"
 											value={step.instructions}
@@ -367,6 +387,7 @@ export default function EditRecipe({ params }: { params: { id: string } }) {
 												}
 											}}
 										/>
+										<span>{}</span>
 									</div>
 								</div>
 							))}
