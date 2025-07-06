@@ -1,11 +1,28 @@
 @import "tailwindcss";
 
+@theme {
+	--font-fredoka: "Fredoka", sans-serif;
+}
+
+/* ##### Default ##### */
+
+body {
+	font-family: var(--font-fredoka);
+	@apply text-white font-normal;
+}
+
+h1, h2, h3, h4, h5 {
+	@apply font-medium;
+}
+
+/* ##### Checkbox ##### */
+
 input[type="checkbox"] {
-  cursor: pointer;
-  position: relative;
-  appearance: none;
-  height: 18px;
-  margin-right: 12px;
+	cursor: pointer;
+	position: relative;
+	appearance: none;
+	height: 18px;
+	margin-right: 12px;
 }
 
 input[type="checkbox"]::before {
