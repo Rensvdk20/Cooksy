@@ -10,45 +10,45 @@
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 				<div class="p-6 lg:col-span-1 col-span-2 bg-zinc-800 rounded-xl shadow-md relative">
 					<h1 class="text-3xl">Ingredients</h1>
-					<div class="flex items-center justify-center absolute top-6 right-6 gap-2 bg-zinc-700 rounded-xl p-2">
+					<div class="flex items-center justify-center absolute top-6 right-6 gap-2 bg-zinc-700 rounded-lg p-2">
 						<svg width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/></svg>
 						<span>2</span>
 					</div>
 					<div class="mt-2">
 						<h2>Main ingredients</h2>
 						<ul class="pl-5 mt-2 space-y-2">
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									2 Pork chop (Rib Chop)
 								</label>
 							</li>
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									Panko
 								</label>
 							</li>
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									Flour
 								</label>
 							</li>
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									3 Eggs
 								</label>
 							</li>
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									3L Sunflower oil
 								</label>
 							</li>
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									Tonkatsu sauce
 								</label>
@@ -59,26 +59,26 @@
 					<div class="mt-6">
 						<h2>Self Made Tonkatsu Sauce (Optional)</h2>
 						<ul class="pl-5 mt-2 space-y-2">
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									8 Tbsp ketchup
 								</label>
 							</li>
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									2 Tbsp sojasaus
 								</label>
 							</li>
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									3 Tbsp worcestershire sauce
 								</label>
 							</li>
-							<li>
-								<label class="flex items-center cursor-pointer">
+							<li class="m-0">
+								<label class="flex items-center cursor-pointer py-1.5">
 									<input type="checkbox" />
 									2 Tsp sugar
 								</label>
