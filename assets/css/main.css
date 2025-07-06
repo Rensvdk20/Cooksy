@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+input[type="checkbox"] {
+  cursor: pointer;
+  position: relative;
+  appearance: none;
+  height: 18px;
+  margin-top: 5px;
+  margin-right: 15px;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    background-color: theme('colors.zinc.50');
+    padding: 9px;
+    border-radius: theme('borderRadius.md');
+    transform: rotate(45deg) scale(1.1);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+}
+
+input[type="checkbox"]:checked::before {
+    background-color: theme('colors.violet.700');
+}
+
+input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 7.5px;
+    height: 8px;
+    width: 4px;
+    transform: rotate(45deg);
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+}
