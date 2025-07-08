@@ -45,7 +45,7 @@ input[type="checkbox"]:checked::before {
 input[type="checkbox"]:checked::after {
     content: "";
     position: absolute;
-    top: 5px;
+    top: 4.5px;
     left: 7.5px;
     height: 8px;
     width: 4px;
