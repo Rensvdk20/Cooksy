@@ -23,3 +23,5 @@ list.txt
 .env
 .env.*
 !.env.example
+
+generated/prisma

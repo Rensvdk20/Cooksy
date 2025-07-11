@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@prisma/nuxt": "^0.3.0",
     "@tailwindcss/vite": "^4.1.11",
     "nuxt": "^3.17.6",
     "tailwindcss": "^4.1.11",
