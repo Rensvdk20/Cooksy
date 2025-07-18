@@ -18,10 +18,13 @@ export default defineNuxtConfig({
 			tailwindcss(),
 		]
 	},
-	modules: [['@nuxtjs/google-fonts', {
-		families: {
-			Fredoka: [400, 500],
-		},
-		display: 'swap',
-	}]]
+	modules: [
+		['@nuxtjs/google-fonts', {
+			families: {
+				Fredoka: [400, 500],
+			},
+			display: 'swap',
+		}],
+		'nuxt-auth-utils'
+	],
 })
