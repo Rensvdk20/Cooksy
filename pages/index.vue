@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import RecipeItem from '~/components/home/RecipeItem.vue';
-import type { Recipe } from '~/types/recipe';
+import type { Recipe } from '~/schemas/recipe/recipeSchema';
 
 const recipes = await $fetch<Recipe[]>('/api/recipes');
 </script>

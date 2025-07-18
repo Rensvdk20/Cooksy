@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import IngredientBlock from '~/components/recipes/IngredientBlock.vue';
-import type { Recipe } from '~/types/recipe';
+import type { Recipe } from '~/schemas/recipe/recipeSchema';
 
 const route = useRoute();
 
