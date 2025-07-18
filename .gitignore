@@ -24,4 +24,7 @@ list.txt
 .env.*
 !.env.example
 
+# Github
+.github
+
 generated/prisma
