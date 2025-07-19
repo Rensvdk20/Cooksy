@@ -8,14 +8,18 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "db:seed": "tsx server/db/seed.ts"
+    "db:seed": "tsx server/db/seed.ts",
+	"prisma:reset": "prisma migrate reset",
+	"prisma:migrate": "prisma migrate dev",
+	"prisma:generate": "prisma generate"
   },
   "dependencies": {
-    "@prisma/nuxt": "^0.3.0",
+    "@prisma/client": "^6.12.0",
     "@tailwindcss/vite": "^4.1.11",
     "nuxt": "^3.17.6",
     "nuxt-auth-utils": "^0.5.20",
     "nuxt-security": "^2.2.0",
+    "prisma": "^6.12.0",
     "tailwindcss": "^4.1.11",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
