@@ -25,6 +25,14 @@ export default defineNuxtConfig({
 			},
 			display: 'swap',
 		}],
-		'nuxt-auth-utils'
+		'nuxt-auth-utils', 'nuxt-security',
 	],
+	security: {
+		headers: {
+			xXSSProtection: '1',
+		},
+		rateLimiter: process.env.NODE_ENV === 'development' ? false : {
+			headers: true
+		},
+	},
 })
