@@ -30,6 +30,9 @@ export default defineNuxtConfig({
 	security: {
 		headers: {
 			xXSSProtection: '1',
+			contentSecurityPolicy: {
+				'img-src': ['self', 'https://i.imgur.com'],
+			}
 		},
 		rateLimiter: process.env.NODE_ENV === 'development' ? false : {
 			headers: true
