@@ -3,7 +3,6 @@ import IngredientBlock from '~/components/recipes/IngredientBlock.vue';
 import type { Recipe } from '~/schemas/recipe/recipeSchema';
 
 const route = useRoute();
-
 const recipe = await $fetch<Recipe>(`/api/recipes/${route.params.id}`);
 </script>
 

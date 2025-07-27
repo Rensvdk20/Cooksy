@@ -25,7 +25,7 @@ export default defineNuxtConfig({
 			},
 			display: 'swap',
 		}],
-		'nuxt-auth-utils', 'nuxt-security',
+		'nuxt-auth-utils', 'nuxt-security', 'reka-ui/nuxt'
 	],
 	security: {
 		headers: {
