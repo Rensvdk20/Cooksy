@@ -4,7 +4,7 @@ await prisma.recipe.create({
 	data: {
 		name: 'Katsudon',
 		servings: 2,
-		main_img: '/_nuxt/public/img/temp/katsudon.jpg',
+		main_img: 'https://i.imgur.com/A5c8ReE.jpeg',
 		ingredientBlocks: {
 			create: [
 				{
