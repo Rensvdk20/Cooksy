@@ -39,6 +39,9 @@ export default defineEventHandler(async (event) => {
 	}
 
 	await prisma.$transaction(async (tx) => {
+		// ---------------------------
+		// Handle Recipe
+		// ---------------------------
 		await tx.recipe.update({
 			where: { id },
 			data: {
@@ -48,45 +51,120 @@ export default defineEventHandler(async (event) => {
 			},
 		});
 
-		if (recipe.ingredientBlocks) {
-			for (const block of recipe.ingredientBlocks) {
-				await tx.ingredientBlock.upsert({
-					where: { id: block.id || '' },
-					update: {
-						name: block.name,
-						ingredients: {
-							deleteMany: {},
-							create: block.ingredients.map((ingredient) => ({
-								name: ingredient.name,
-							})),
-						},
+		// ---------------------------
+		// Handle Steps
+		// ---------------------------
+		const existingSteps = await tx.step.findMany({
+			where: { recipeId: id },
+			select: { id: true },
+		});
+		const incomingStepIds = recipe.steps
+			?.map(s => s.id)
+			.filter((id): id is string => typeof id === "string") ?? [];
+		const existingStepIds = existingSteps.map(s => s.id);
+
+		// Delete removed steps
+		await tx.step.deleteMany({
+			where: {
+				recipeId: id,
+				NOT: { id: { in: incomingStepIds } },
+			},
+		});
+
+		// Upsert steps
+		for (const step of recipe.steps || []) {
+			if (step.id && existingStepIds.includes(step.id)) {
+				await tx.step.update({
+					where: { id: step.id },
+					data: {
+						name: step.name,
+						instructions: step.instructions,
 					},
-					create: {
-						name: block.name,
+				});
+			} else {
+				await tx.step.create({
+					data: {
+						name: step.name,
+						instructions: step.instructions,
 						recipeId: id,
-						ingredients: {
-							create: block.ingredients.map((ingredient) => ({
-								id: ingredient.id,
-								name: ingredient.name,
-							})),
-						},
 					},
 				});
 			}
 		}
 
-		if (recipe.steps) {
-			await tx.step.deleteMany({
-				where: { recipeId: id }
-			});
+		// ---------------------------
+		// Handle Ingredient Blocks + Ingredients
+		// ---------------------------
+		const existingBlocks = await tx.ingredientBlock.findMany({
+			where: { recipeId: id },
+			include: { ingredients: true },
+		});
+		const incomingBlockIds = recipe.ingredientBlocks
+			?.map(b => b.id)
+			.filter((id): id is string => typeof id === "string") ?? [];
+		const existingBlockIds = existingBlocks.map(b => b.id);
 
-			if (recipe.steps.length > 0) {
-				await tx.step.createMany({
-					data: recipe.steps.map(step => ({
-						name: step.name,
-						instructions: step.instructions,
+		// Delete removed blocks
+		await tx.ingredientBlock.deleteMany({
+			where: {
+				recipeId: id,
+				NOT: { id: { in: incomingBlockIds } },
+			},
+		});
+
+		for (const block of recipe.ingredientBlocks || []) {
+			if (block.id && existingBlockIds.includes(block.id)) {
+				// Update existing block
+				await tx.ingredientBlock.update({
+					where: { id: block.id },
+					data: {
+						name: block.name,
+					},
+				});
+
+				// Compare ingredients
+				const dbBlock = existingBlocks.find(b => b.id === block.id);
+				const dbIngredientIds = dbBlock?.ingredients.map(i => i.id) ?? [];
+				const incomingIngredientIds = block.ingredients
+					.map(i => i.id)
+					.filter((id): id is string => typeof id === "string");
+
+				// Delete removed ingredients
+				await tx.ingredient.deleteMany({
+					where: {
+						ingredientBlockId: block.id,
+						NOT: { id: { in: incomingIngredientIds } },
+					},
+				});
+
+				// Upsert ingredients
+				for (const ingredient of block.ingredients) {
+					if (ingredient.id && dbIngredientIds.includes(ingredient.id)) {
+						await tx.ingredient.update({
+							where: { id: ingredient.id },
+							data: { name: ingredient.name },
+						});
+					} else {
+						await tx.ingredient.create({
+							data: {
+								name: ingredient.name,
+								ingredientBlockId: block.id,
+							},
+						});
+					}
+				}
+			} else {
+				// Create new block + ingredients
+				await tx.ingredientBlock.create({
+					data: {
+						name: block.name,
 						recipeId: id,
-					})),
+						ingredients: {
+							create: block.ingredients.map(ingredient => ({
+								name: ingredient.name,
+							})),
+						},
+					},
 				});
 			}
 		}
