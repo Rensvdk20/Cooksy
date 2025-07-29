@@ -203,8 +203,7 @@ function onImageChange(event: Event) {
 									v-model="step.instructions"
 									v-autoresize
 									class="w-full rounded-sm p-1 px-2 border border-neutral-700 overflow-hidden resize-none"
-									placeholder="Instructions">
-								</textarea>
+									placeholder="Instructions" />
 							</div>
 						</div>
 					</div>
