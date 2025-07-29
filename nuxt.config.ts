@@ -39,4 +39,14 @@ export default defineNuxtConfig({
 			headers: true
 		},
 	},
+	routeRules: {
+		"/api/image/upload": {
+			security: {
+				requestSizeLimiter: {
+					maxRequestSizeInBytes: 5000000, // 5MB
+					throwError: true,
+				}
+			}
+		},
+	}
 })

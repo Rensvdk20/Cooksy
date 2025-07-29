@@ -17,7 +17,6 @@ export default defineEventHandler(async (event) => {
 	const parsedRecipe = editRecipeSchema.safeParse(body);
 
 	if (!parsedRecipe.success) {
-		console.error(parsedRecipe.error.issues);
 
 		throw createError({
 			statusCode: 400,
