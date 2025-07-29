@@ -32,7 +32,7 @@ export default defineNuxtConfig({
 			xXSSProtection: '1',
 			contentSecurityPolicy: {
 				"default-src": ["'self'"],
-				'img-src': ["'self'", "https://i.imgur.com", "data:"],
+				'img-src': ["'self'", "https://i.imgur.com", "https://ik.imagekit.io/aeris/", "data:"],
 			}
 		},
 		rateLimiter: process.env.NODE_ENV === 'development' ? false : {

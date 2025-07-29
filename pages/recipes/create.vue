@@ -43,10 +43,33 @@ async function createRecipe() {
 		(step) => step.name?.trim() || step.instructions?.trim()
 	);
 
+	if(recipe.main_img.includes('data:image/')) {
+		const uploadResponse = await $fetch('/api/image/upload', {
+			method: 'POST',
+			body: {
+				base64Img: recipe.main_img,
+			},
+		});
+
+		recipe.main_img = uploadResponse.imageUrl;
+	}
+
 	await $fetch(`/api/recipes`, {
 		method: 'POST',
 		body: recipe
 	});
+}
+
+function onImageChange(event: Event) {
+	const input = event.target as HTMLInputElement;
+	const file = input?.files?.[0];
+	if (!file) return;
+
+	const reader = new FileReader();
+	reader.onload = () => {
+		recipe.main_img = reader.result as string;
+	};
+	reader.readAsDataURL(file);
 }
 
 function addIngredient(ingredientBlock: EditIngredientBlock) {
@@ -81,9 +104,30 @@ function addStep() {
 		</div>
 		<div class="grid grid-cols-3 gap-6">
 			<div class="col-span-1 p-4 bg-zinc-800 rounded-2xl">
-				<div class="overflow-hidden relative h-40 rounded-3xl bg-primary mb-4">
-					<img v-if="recipe.main_img.length > 0" :src="recipe.main_img" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-auto" />
+				<div class="group overflow-hidden relative h-40 rounded-3xl bg-primary mb-4">
+					<div>
+						<img v-if="recipe.main_img.length > 0" :src="recipe.main_img" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-auto"/>
+						<div v-else class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-zinc-900"></div>
+					</div>
+					<div
+						class="absolute inset-0 flex justify-center items-center group-hover:opacity-100 opacity-0 transition-opacity duration-200 pointer-events-none"
+						:class="recipe.main_img.length > 0 ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'"
+					>
+						<div class="absolute inset-0 bg-zinc-900 opacity-60" />
+						<span class="relative text-white text-opacity-80 text-center">
+							Click or drag & drop your image
+						</span>
+					</div>
+					<div class="absolute top-0 left-0 w-full h-full">
+						<input
+							class="h-40 w-full text-transparent cursor-pointer"
+							type="file"
+							@change="onImageChange"
+							accept="image/*"
+						/>
+					</div>
 				</div>
+
 				<div class="mb-2">
 					<h5 class="text-lg mb-1">Recipe name</h5>
 					<input v-model="recipe.name" type="text" class="w-full rounded-sm p-1 px-2 border border-neutral-700" placeholder="Name" />
