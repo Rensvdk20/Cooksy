@@ -40,7 +40,7 @@ function clearError() {
 
 <template>
 	<div class="overflow-hidden relative">
-		<div class="min-h-screen flex items-center justify-center px-4 py-8">
+		<div class="min-h-screen mt-[-72px] flex items-center justify-center px-4 py-8">
 			<div class="bg-white text-black rounded-lg max-w-fit p-8">
 				<div class="mb-4">
 					<h1 class="text-2xl">Sign in to Cooksy</h1>
