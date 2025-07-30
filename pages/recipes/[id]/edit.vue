@@ -77,14 +77,14 @@ function onImageChange(event: Event) {
 
 </script>
 <template>
-	<div class="max-w-[1200px] mx-auto px-4">
+	<div class="max-w-[1200px] mx-auto px-4 pb-8">
 		<div class="flex items-center max-w-fit p-2 m-4 cursor-pointer" @click="$router.back()">
 			<svg class="inline-block" width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white">
 				<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
 			</svg>
 			<span class="ml-2">Back</span>
 		</div>
-		<div class="grid grid-cols-3 gap-6">
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 gap-x-0 lg:gap-x-6">
 			<div class="col-span-1 p-4 bg-zinc-800 rounded-2xl">
 				<div class="group overflow-hidden relative h-40 rounded-3xl bg-primary mb-4">
 					<div>
@@ -202,7 +202,7 @@ function onImageChange(event: Event) {
 								<textarea
 									v-model="step.instructions"
 									v-autoresize
-									class="w-full rounded-sm p-1 px-2 border border-neutral-700 overflow-hidden resize-none"
+									class="w-full rounded-sm p-1 px-2 border border-neutral-700 overflow-hidden"
 									placeholder="Instructions" />
 							</div>
 						</div>
