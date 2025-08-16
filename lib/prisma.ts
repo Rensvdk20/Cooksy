@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-export * from "@prisma/client";
+import { PrismaClient } from "_db";
+export * from "_db";
 
 const prismaClientSingleton = () => {
   return new PrismaClient();

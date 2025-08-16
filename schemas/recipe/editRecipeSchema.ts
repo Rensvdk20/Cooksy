@@ -8,12 +8,14 @@ export const editIngredientSchema = z.object({
 export const editIngredientBlockSchema = z.object({
 	id: z.string().uuid().optional(),
 	name: z.string().nonempty("Ingredient column name is required").max(100),
+	order: z.number().int(),
 	ingredients: z.array(editIngredientSchema),
 });
 
 export const editStepSchema = z.object({
 	id: z.string().uuid().optional(),
 	name: z.string().nonempty("Step name is required").max(100),
+	order: z.number().int(),
 	instructions: z.string(),
 });
 

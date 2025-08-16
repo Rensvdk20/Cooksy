@@ -25,14 +25,16 @@ export default defineEventHandler(async (event) => {
 			servings: recipe.servings,
 			main_img: recipe.main_img,
 			steps: {
-				create: recipe.steps.map((step) => ({
+				create: recipe.steps.map((step, index) => ({
 					name: step.name,
 					instructions: step.instructions,
+					order: index,
 				})),
 			},
 			ingredientBlocks: {
-				create: recipe.ingredientBlocks.map((block) => ({
+				create: recipe.ingredientBlocks.map((block, index) => ({
 					name: block.name,
+					order: index,
 					ingredients: {
 						create: block.ingredients.map((ingredient) => ({
 							name: ingredient.name,

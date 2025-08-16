@@ -15,9 +15,16 @@ export default defineEventHandler(async (event) => {
 			ingredientBlocks: {
 				include: {
 					ingredients: true
+				},
+				orderBy: {
+					order: 'asc'
 				}
 			},
-			steps: true
+			steps: {
+				orderBy: {
+					order: 'asc'
+				}
+			}
 		}
 	});
 

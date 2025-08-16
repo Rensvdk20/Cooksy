@@ -9,12 +9,14 @@ export const ingredientBlockSchema = z.object({
 	id: z.string().uuid(),
 	name: z.string().nonempty("Ingredient column name is required").max(100),
 	ingredients: z.array(ingredientSchema),
+	order: z.number().int(),
 });
 
 export const stepSchema = z.object({
 	id: z.string().uuid(),
 	name: z.string().nonempty("Step name is required").max(100),
 	instructions: z.string().nonempty("Instructions are required"),
+	order: z.number().int(),
 });
 
 export const recipeSchema = z.object({

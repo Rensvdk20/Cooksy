@@ -13,6 +13,7 @@ const recipe = reactive<EditRecipe>({
 	ingredientBlocks: [
 		{
 			name: '',
+			order: 0,
 			ingredients: [
 				{
 					name: ''
@@ -23,6 +24,7 @@ const recipe = reactive<EditRecipe>({
 	steps: [
 		{
 			name: '',
+			order: 0,
 			instructions: ''
 		}
 	],
@@ -81,6 +83,7 @@ function addIngredient(ingredientBlock: EditIngredientBlock) {
 function addIngredientBlock() {
 	recipe.ingredientBlocks.push({
 		name: '',
+		order: 0,
 		ingredients: [
 			{ name: '' }
 		],
@@ -90,6 +93,7 @@ function addIngredientBlock() {
 function addStep() {
 	recipe.steps.push({
 		name: '',
+		order: 0,
 		instructions: '',
 	});
 }

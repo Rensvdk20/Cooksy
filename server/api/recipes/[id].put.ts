@@ -72,12 +72,15 @@ export default defineEventHandler(async (event) => {
 
 		// Upsert steps
 		for (const step of recipe.steps || []) {
+			const order = (recipe.steps?.indexOf(step) ?? 0);
+
 			if (step.id && existingStepIds.includes(step.id)) {
 				await tx.step.update({
 					where: { id: step.id },
 					data: {
 						name: step.name,
 						instructions: step.instructions,
+						order: order,
 					},
 				});
 			} else {
@@ -85,6 +88,7 @@ export default defineEventHandler(async (event) => {
 					data: {
 						name: step.name,
 						instructions: step.instructions,
+						order: order,
 						recipeId: id,
 					},
 				});
@@ -112,12 +116,15 @@ export default defineEventHandler(async (event) => {
 		});
 
 		for (const block of recipe.ingredientBlocks || []) {
+			const order = (recipe.ingredientBlocks?.indexOf(block) ?? 0);
+
 			if (block.id && existingBlockIds.includes(block.id)) {
 				// Update existing block
 				await tx.ingredientBlock.update({
 					where: { id: block.id },
 					data: {
 						name: block.name,
+						order: order,
 					},
 				});
 
@@ -158,6 +165,7 @@ export default defineEventHandler(async (event) => {
 					data: {
 						name: block.name,
 						recipeId: id,
+						order: order,
 						ingredients: {
 							create: block.ingredients.map(ingredient => ({
 								name: ingredient.name,

@@ -50,6 +50,7 @@ function addIngredient(ingredientBlock: EditIngredientBlock) {
 function addIngredientBlock() {
 	recipe.ingredientBlocks.push({
 		name: '',
+		order: 0,
 		ingredients: [
 			{ name: '' }
 		],
@@ -59,6 +60,7 @@ function addIngredientBlock() {
 function addStep() {
 	recipe.steps.push({
 		name: '',
+		order: 0,
 		instructions: '',
 	});
 }

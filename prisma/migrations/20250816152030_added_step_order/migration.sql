@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Step" ADD COLUMN     "order" INTEGER NOT NULL DEFAULT 0;

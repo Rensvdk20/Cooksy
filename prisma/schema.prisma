@@ -25,6 +25,7 @@ model Recipe {
 model IngredientBlock {
     id          String       @id @default(uuid())
     name        String
+    order       Int          @default(0)
     recipe      Recipe       @relation(fields: [recipeId], references: [id], onDelete: Cascade)
     recipeId    String
     ingredients Ingredient[]
@@ -45,6 +46,7 @@ model Step {
     id           String @id @default(uuid())
     name         String
     instructions String
+    order        Int    @default(0)
     recipe       Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
     recipeId     String
 
