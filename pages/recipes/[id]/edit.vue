@@ -16,13 +16,15 @@ async function editRecipe() {
 		);
 	});
 
-	recipe.ingredientBlocks = recipe.ingredientBlocks?.filter(
+	const filteredIngredientBlocks = recipe.ingredientBlocks?.filter(
 		(block) => block.name?.trim() || block.ingredients.length > 0
 	);
+	recipe.ingredientBlocks = filteredIngredientBlocks.length > 0 ? filteredIngredientBlocks : [recipe.ingredientBlocks[0]];
 
-	recipe.steps = recipe.steps.filter(
+	const filteredSteps = recipe.steps.filter(
 		(step) => step.name?.trim() || step.instructions?.trim()
 	);
+	recipe.steps = filteredSteps.length > 0 ? filteredSteps : [recipe.steps[0]];
 
 	if(recipe.main_img.includes('data:image/')) {
 		const uploadResponse = await $fetch('/api/image/upload', {
