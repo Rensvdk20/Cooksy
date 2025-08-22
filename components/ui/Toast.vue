@@ -4,9 +4,9 @@ import { ToastType } from '~/types/toast';
     const { toasts, hideToast } = useToast();
 
 	const typeClasses = {
-        [ToastType.Info]: "bg-blue-600/5",
-        [ToastType.Success]: "bg-green-600/5",
-        [ToastType.Error]: "bg-red-600/5",
+        [ToastType.Info]: "bg-blue-600/10",
+        [ToastType.Success]: "bg-green-600/10",
+        [ToastType.Error]: "bg-red-600/10",
     };
 </script>
 
