@@ -3,7 +3,7 @@ import { ToastType, type ToastState } from "~/types/toast";
 const toasts = ref<ToastState[]>([]);
 let toastCount = 0;
 
-const ANIMATION_DURATION = 200;
+const ANIMATION_DURATION = 100;
 
 export const useToast = () => {
     const showToast = (message: string, type: ToastType = ToastType.Info, duration = 5000) => {

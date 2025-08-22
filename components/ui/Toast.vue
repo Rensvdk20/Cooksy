@@ -18,7 +18,7 @@ import { ToastType } from '~/types/toast';
                 :key="toast.id"
                 v-model:open="toast.open"
                 :class="[
-                    'max-w-70 text-white rounded-lg p-4 shadow-lg transition-colors mb-2',
+                    'max-w-80 text-white rounded-lg p-4 shadow-lg transition-colors mb-2',
                     typeClasses[toast.type] || 'bg-zinc-800'
                 ]"
             >
@@ -50,10 +50,10 @@ import { ToastType } from '~/types/toast';
 }
 
 :deep([data-state="open"]) {
-    animation: slideDownAndFade 200ms ease-out;
+    animation: slideDownAndFade 100ms ease-out;
 }
 
 :deep([data-state="closed"]) {
-    animation: slideUpAndFade 200ms ease-in;
+    animation: slideUpAndFade 100ms ease-in;
 }
 </style>
