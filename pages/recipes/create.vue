@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { VueDraggable } from 'vue-draggable-plus';
 import type { EditIngredientBlock, EditRecipe } from '~/schemas/recipe/editRecipeSchema';
+import { ToastType } from '~/types/toast';
 
 definePageMeta({
 	middleware: ['auth'],
 });
+
+const { showToast } = useToast();
 
 const recipe = reactive<EditRecipe>({
 	name: '',
@@ -58,10 +61,18 @@ async function createRecipe() {
 		recipe.main_img = uploadResponse.imageUrl;
 	}
 
-	await $fetch(`/api/recipes`, {
-		method: 'POST',
-		body: recipe
-	});
+	try {
+		await $fetch(`/api/recipes`, {
+			method: 'POST',
+			body: recipe
+		});
+
+		showToast('Recipe created', ToastType.Success);
+
+		return navigateTo('/')
+	} catch (error: any) {
+		return showToast(error.statusMessage, ToastType.Error);
+	}
 }
 
 function onImageChange(event: Event) {

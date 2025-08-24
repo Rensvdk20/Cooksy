@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { VueDraggable } from 'vue-draggable-plus';
 import type { EditIngredientBlock, EditRecipe } from '~/schemas/recipe/editRecipeSchema';
+import { ToastType } from '~/types/toast';
 
 definePageMeta({
 	middleware: ['auth'],
 });
+
+const { showToast } = useToast();
 
 const route = useRoute();
 const recipe = reactive<EditRecipe>(await $fetch(`/api/recipes/${route.params.id}`));
@@ -37,10 +40,16 @@ async function editRecipe() {
 		recipe.main_img = uploadResponse.imageUrl;
 	}
 
-	await $fetch(`/api/recipes/${route.params.id}`, {
-		method: 'PUT',
-		body: recipe
-	});
+	try {
+		await $fetch(`/api/recipes/${route.params.id}`, {
+			method: 'PUT',
+			body: recipe
+		});
+
+		return showToast('Recipe updated', ToastType.Success);
+	} catch (error: any) {
+		return showToast(error.statusMessage, ToastType.Error);
+	}
 }
 
 function addIngredient(ingredientBlock: EditIngredientBlock) {

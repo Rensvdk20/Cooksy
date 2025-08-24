@@ -9,11 +9,12 @@ export default defineEventHandler(async (event) => {
 	const parsedRecipe = editRecipeSchema.safeParse(body);
 
 	if (!parsedRecipe.success) {
+		const firstParseError = parsedRecipe.error.issues[0];
 		console.error(parsedRecipe.error.issues);
 
 		throw createError({
 			statusCode: 400,
-			statusMessage: parsedRecipe.error.issues.map(issue => issue.message).join(', ')
+			statusMessage: firstParseError.message
 		});
 	}
 

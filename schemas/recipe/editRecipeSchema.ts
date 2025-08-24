@@ -23,7 +23,7 @@ export const editRecipeSchema = z.object({
 	id: z.string().uuid().optional(),
 	name: z.string().nonempty("Recipe name is required").max(100),
 	servings: z.number().int().positive().max(1000),
-	main_img: z.string().url().max(1000),
+	main_img: z.string().url("Recipe image is required").max(1000),
 	ingredientBlocks: z.array(editIngredientBlockSchema),
 	steps: z.array(editStepSchema),
 });
