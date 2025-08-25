@@ -6,6 +6,10 @@
 
 /* ##### Default ##### */
 
+html {
+	@apply bg-zinc-900;
+}
+
 body {
 	font-family: var(--font-fredoka);
 	@apply text-white font-normal;

@@ -12,6 +12,8 @@ const { showToast } = useToast();
 const route = useRoute();
 const recipe = reactive<EditRecipe>(await $fetch(`/api/recipes/${route.params.id}`));
 
+const deleteModalIsOpen = ref(false);
+
 async function editRecipe() {
 	recipe.ingredientBlocks?.forEach((block) => {
 		block.ingredients = block.ingredients.filter(
@@ -47,6 +49,21 @@ async function editRecipe() {
 		});
 
 		return showToast('Recipe updated', ToastType.Success);
+	} catch (error: any) {
+		return showToast(error.statusMessage, ToastType.Error);
+	}
+}
+
+async function deleteRecipe() {
+	try {
+		await $fetch(`/api/recipes/${route.params.id}`, {
+			method: 'DELETE',
+		});
+
+		deleteModalIsOpen.value = false;
+		showToast('Recipe deleted', ToastType.Success);
+
+		return navigateTo('/');
 	} catch (error: any) {
 		return showToast(error.statusMessage, ToastType.Error);
 	}
@@ -187,12 +204,20 @@ function onImageChange(event: Event) {
 			<div class="col-span-2 p-4 bg-zinc-800 rounded-2xl">
 				<div class="flex items-center justify-between mb-4">
 					<h2 class="text-2xl mb-2">Steps</h2>
-					<button @click="editRecipe" class="flex gap-1 border border-neutral-700 p-2 rounded-3xl cursor-pointer hover:bg-neutral-800 transition-all">
-						<svg class="w-5" viewBox="0 0 640 640" fill="white">
-							<path d="M160 96C124.7 96 96 124.7 96 160L96 480C96 515.3 124.7 544 160 544L480 544C515.3 544 544 515.3 544 480L544 237.3C544 220.3 537.3 204 525.3 192L448 114.7C436 102.7 419.7 96 402.7 96L160 96zM192 192C192 174.3 206.3 160 224 160L384 160C401.7 160 416 174.3 416 192L416 256C416 273.7 401.7 288 384 288L224 288C206.3 288 192 273.7 192 256L192 192zM320 352C355.3 352 384 380.7 384 416C384 451.3 355.3 480 320 480C284.7 480 256 451.3 256 416C256 380.7 284.7 352 320 352z"/>
-						</svg>
-						Edit
-					</button>
+					<div class="flex gap-2">
+						<button @click="deleteModalIsOpen = true" class="flex gap-1 border border-neutral-700 p-2 rounded-3xl cursor-pointer hover:bg-neutral-800 transition-all">
+							<svg class="w-5" viewBox="0 0 640 640" fill="white">
+								<path d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z"/>
+							</svg>
+							Delete
+						</button>
+						<button @click="editRecipe" class="flex gap-1 border border-neutral-700 p-2 rounded-3xl cursor-pointer hover:bg-neutral-800 transition-all">
+							<svg class="w-5" viewBox="0 0 640 640" fill="white">
+								<path d="M160 96C124.7 96 96 124.7 96 160L96 480C96 515.3 124.7 544 160 544L480 544C515.3 544 544 515.3 544 480L544 237.3C544 220.3 537.3 204 525.3 192L448 114.7C436 102.7 419.7 96 402.7 96L160 96zM192 192C192 174.3 206.3 160 224 160L384 160C401.7 160 416 174.3 416 192L416 256C416 273.7 401.7 288 384 288L224 288C206.3 288 192 273.7 192 256L192 192zM320 352C355.3 352 384 380.7 384 416C384 451.3 355.3 480 320 480C284.7 480 256 451.3 256 416C256 380.7 284.7 352 320 352z"/>
+							</svg>
+							Edit
+						</button>
+					</div>
 				</div>
 				<VueDraggable v-model="recipe.steps" handle=".handle">
 					<div v-for="(step, index) in recipe.steps" :key="step.id" class="border border-neutral-700 rounded-sm mb-4">
@@ -223,6 +248,22 @@ function onImageChange(event: Event) {
 				</VueDraggable>
 				<button @click="addStep" class="w-full border border-indigo-700 p-2 py-1 rounded-sm hover:bg-indigo-700 cursor-pointer transition-all">+ Add step</button>
 			</div>
+			<Modal v-model:open="deleteModalIsOpen">
+				<DialogTitle class="text-lg font-semibold">
+					Delete Recipe
+				</DialogTitle>
+
+				<DialogDescription>
+					Are you sure you want to delete this recipe?
+				</DialogDescription>
+
+				<div class="mt-4 flex justify-end gap-2">
+					<DialogClose as-child>
+						<button class="cursor-pointer border border-neutral-700 px-4 py-2 rounded-md hover:bg-neutral-800">Cancel</button>
+					</DialogClose>
+					<button @click="deleteRecipe" class="cursor-pointer bg-red-600/50 px-4 py-2 rounded-md hover:bg-red-600/45">Delete</button>
+				</div>
+			</Modal>
 		</div>
 	</div>
 </template>
