@@ -8,7 +8,8 @@ const recipes = await $fetch<Recipe[]>('/api/recipes');
 <template>
 	<div class="max-w-[1200px] mx-auto px-4 pb-8">
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-			<RecipeItem v-for="recipe in recipes" :recipe :key="recipe.id" />
+			<RecipeItem v-if="recipes.length > 0" v-for="recipe in recipes" :recipe :key="recipe.id" />
+			<div v-else>No recipes found</div>
 		</div>
 	</div>
 </template>
