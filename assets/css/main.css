@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+	--font-fredoka: "Fredoka", sans-serif;
+}
+
+/* ##### Default ##### */
+
+html {
+	@apply bg-zinc-900;
+}
+
+body {
+	font-family: var(--font-fredoka);
+	@apply text-white font-normal;
+}
+
+h1, h2, h3, h4, h5 {
+	@apply font-medium;
+}
+
+/* ##### Checkbox ##### */
+
+input[type="checkbox"] {
+	cursor: pointer;
+	position: relative;
+	appearance: none;
+	height: 18px;
+	margin-right: 12px;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    background-color: theme('colors.zinc.50');
+    padding: 9px;
+    border-radius: theme('borderRadius.md');
+    transform: rotate(45deg) scale(1.1);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+}
+
+input[type="checkbox"]:checked::before {
+    background-color: theme('colors.violet.700');
+}
+
+input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 4.5px;
+    left: 7.5px;
+    height: 8px;
+    width: 4px;
+    transform: rotate(45deg);
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+}

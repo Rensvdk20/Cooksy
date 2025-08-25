@@ -23,3 +23,8 @@ list.txt
 .env
 .env.*
 !.env.example
+
+# Github
+.github
+
+generated/prisma
