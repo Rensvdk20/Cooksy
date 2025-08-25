@@ -108,7 +108,7 @@ function onImageChange(event: Event) {
 </script>
 <template>
 	<div class="max-w-[1200px] mx-auto px-4 pb-8">
-		<div class="flex items-center max-w-fit p-2 m-4 cursor-pointer" @click="$router.back()">
+		<div class="flex items-center max-w-fit p-2 m-4 sm:ml-4 ml-0 cursor-pointer" @click="$router.back()">
 			<svg class="inline-block" width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="white">
 				<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
 			</svg>
