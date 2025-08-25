@@ -54,8 +54,32 @@ const handleMobileLogout = () => {
                                 d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                    <NuxtLink v-if="!user" href="/auth/login" @click="isMenuOpen = false" class="cursor-pointer hover:text-gray-300">Login</NuxtLink>
-                    <button v-else @click="handleMobileLogout" class="cursor-pointer hover:text-gray-300">Logout</button>
+
+					<div v-if="!user" class="flex flex-col items-center space-y-6">
+						<NuxtLink
+							href="/auth/login"
+							@click="isMenuOpen = false"
+							class="cursor-pointer hover:text-gray-300"
+						>
+							Login
+						</NuxtLink>
+					</div>
+
+					<div v-else class="flex flex-col items-center space-y-6">
+						<NuxtLink
+							href="/recipes/create"
+							@click="isMenuOpen = false"
+							class="cursor-pointer hover:text-gray-300"
+						>
+							Create
+						</NuxtLink>
+						<button
+							@click="handleMobileLogout"
+							class="cursor-pointer hover:text-gray-300"
+						>
+							Logout
+						</button>
+					</div>
                 </div>
             </transition>
         </div>
