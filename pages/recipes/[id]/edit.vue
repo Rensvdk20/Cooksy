@@ -172,7 +172,7 @@ function onImageChange(event: Event) {
 					<h5 class="text-lg mb-1">Ingredients</h5>
 					<VueDraggable v-model="recipe.ingredientBlocks" handle=".handle">
 						<div v-for="(ingredientBlock, index) in recipe.ingredientBlocks" :key="ingredientBlock.id" class="border border-neutral-700 rounded-sm p-4 mb-4">
-							<div class="flex gap-4">
+							<div class="flex flex-wrap sm:flex-nowrap gap-4">
 								<div class="handle">
 									<svg class="w-5" viewBox="0 0 15 25">
 										<circle cx="2.8125" cy="2.8125" r="2.8125" fill="#737373" />
@@ -186,7 +186,7 @@ function onImageChange(event: Event) {
 								<div>
 									<span class="text-xl text-neutral-500">{{ (index + 1 < 10 ? "0" : "") + (index + 1) }}</span>
 								</div>
-								<div class="flex-1">
+								<div class="w-full">
 									<input type="text" v-model="ingredientBlock.name" class="w-full text-lg rounded-sm p-2 px-2 mb-2 border border-neutral-700" placeholder="Title" />
 									<div>
 										<input v-for="ingredient in ingredientBlock.ingredients" v-model="ingredient.name" type="text" class="w-full rounded-sm p-1 px-2 mb-2 border border-neutral-700" placeholder="Ingredient" />
@@ -221,7 +221,7 @@ function onImageChange(event: Event) {
 				</div>
 				<VueDraggable v-model="recipe.steps" handle=".handle">
 					<div v-for="(step, index) in recipe.steps" :key="step.id" class="border border-neutral-700 rounded-sm mb-4">
-						<div class="flex gap-4 p-4 mb-4">
+						<div class="flex flex-wrap sm:flex-nowrap gap-4 p-4 mb-4">
 							<div class="handle">
 								<svg class="w-5" viewBox="0 0 15 25">
 									<circle cx="2.8125" cy="2.8125" r="2.8125" fill="#737373" />
