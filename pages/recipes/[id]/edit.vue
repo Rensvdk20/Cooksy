@@ -5,6 +5,8 @@ import { ToastType } from '~/types/toast';
 
 definePageMeta({
 	middleware: ['auth'],
+	title: 'Edit Recipe | Cooksy',
+	description: 'Edit your recipe',
 });
 
 const { showToast } = useToast();

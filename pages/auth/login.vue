@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import type { Credentials } from '~/schemas/auth/authSchema';
 
+definePageMeta({
+	title: 'Login | Cooksy',
+	description: 'Login to your Cooksy account',
+});
+
 const { fetch } = useUserSession();
 
 const credentials = ref<Credentials>({

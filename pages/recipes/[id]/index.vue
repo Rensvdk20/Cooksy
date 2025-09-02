@@ -2,6 +2,11 @@
 import IngredientBlock from '~/components/recipes/IngredientBlock.vue';
 import type { Recipe } from '~/schemas/recipe/recipeSchema';
 
+definePageMeta({
+	title: 'Recipe Details | Cooksy',
+	description: 'View the details of your recipe',
+});
+
 const route = useRoute();
 const recipe = await $fetch<Recipe>(`/api/recipes/${route.params.id}`);
 </script>

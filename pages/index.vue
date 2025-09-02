@@ -2,6 +2,11 @@
 import RecipeItem from '~/components/home/RecipeItem.vue';
 import type { Recipe } from '~/schemas/recipe/recipeSchema';
 
+definePageMeta({
+	title: 'Recipes | Cooksy',
+	description: 'Browse and manage your recipes',
+});
+
 const recipes = await $fetch<Recipe[]>('/api/recipes');
 </script>
 
