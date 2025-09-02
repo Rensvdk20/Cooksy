@@ -3,11 +3,17 @@ import { VueDraggable } from 'vue-draggable-plus';
 import type { EditIngredientBlock, EditRecipe } from '~/schemas/recipe/editRecipeSchema';
 import { ToastType } from '~/types/toast';
 
+const { showToast } = useToast();
+
 definePageMeta({
 	middleware: ['auth'],
+	title: 'Create Recipe | Cooksy',
+	description: 'Create a new recipe on Cooksy',
 });
 
-const { showToast } = useToast();
+useHead({
+	title: 'Create Recipe | Cooksy',
+});
 
 const recipe = reactive<EditRecipe>({
 	name: '',

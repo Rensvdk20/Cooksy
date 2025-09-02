@@ -3,6 +3,19 @@ import type { Credentials } from '~/schemas/auth/authSchema';
 
 const { fetch } = useUserSession();
 
+useHead({
+	title: 'Login | Cooksy',
+});
+
+definePageMeta({
+	title: 'Login | Cooksy',
+	description: 'Login to your Cooksy account',
+	head: {
+		title: 'Login | Cooksy',
+
+	}
+});
+
 const credentials = ref<Credentials>({
 	email: '',
 	password: '',

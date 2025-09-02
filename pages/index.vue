@@ -3,6 +3,15 @@ import RecipeItem from '~/components/home/RecipeItem.vue';
 import type { Recipe } from '~/schemas/recipe/recipeSchema';
 
 const recipes = await $fetch<Recipe[]>('/api/recipes');
+
+definePageMeta({
+	title: 'Recipes | Cooksy',
+	description: 'Browse and manage your recipes',
+});
+
+useHead({
+	title: 'Recipes | Cooksy',
+});
 </script>
 
 <template>

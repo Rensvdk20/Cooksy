@@ -4,6 +4,15 @@ import type { Recipe } from '~/schemas/recipe/recipeSchema';
 
 const route = useRoute();
 const recipe = await $fetch<Recipe>(`/api/recipes/${route.params.id}`);
+
+definePageMeta({
+	title: 'Recipe Details | Cooksy',
+	description: 'View the details of your recipe',
+});
+
+useHead({
+	title: `${recipe.name} | Cooksy`,
+});
 </script>
 
 <template>

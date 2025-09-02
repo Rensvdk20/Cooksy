@@ -3,14 +3,20 @@ import { VueDraggable } from 'vue-draggable-plus';
 import type { EditIngredientBlock, EditRecipe } from '~/schemas/recipe/editRecipeSchema';
 import { ToastType } from '~/types/toast';
 
-definePageMeta({
-	middleware: ['auth'],
-});
-
 const { showToast } = useToast();
 
 const route = useRoute();
 const recipe = reactive<EditRecipe>(await $fetch(`/api/recipes/${route.params.id}`));
+
+definePageMeta({
+	middleware: ['auth'],
+	title: 'Edit Recipe | Cooksy',
+	description: 'Edit your recipe',
+});
+
+useHead({
+	title: `Edit ${recipe.name} | Cooksy`,
+});
 
 const deleteModalIsOpen = ref(false);
 
