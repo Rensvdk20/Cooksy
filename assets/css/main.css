@@ -61,3 +61,73 @@ input[type="checkbox"]:checked::after {
 	border-bottom: 2px solid white;
 	border-right: 2px solid white;
 }
+
+/* ##### Skeleton ##### */
+
+.recipe-skeleton__image {
+	position: relative;
+	overflow: hidden;
+	border-radius: inherit;
+	background-color: rgba(50, 50, 57, 0.9);
+}
+
+.recipe-skeleton__image::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(
+			circle at 18% 18%,
+			rgba(255, 255, 255, 0.03),
+			rgba(255, 255, 255, 0) 36%
+		),
+		radial-gradient(
+			circle at 82% 84%,
+			rgba(24, 24, 27, 0.18),
+			rgba(24, 24, 27, 0) 42%
+		);
+}
+
+.recipe-skeleton__image::after {
+	content: "";
+	position: absolute;
+	top: -8%;
+	left: -20%;
+	height: 116%;
+	width: 52%;
+	transform: translateX(-140%) skewX(-14deg);
+	background: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0) 0%,
+		rgba(255, 255, 255, 0.02) 35%,
+		rgba(255, 255, 255, 0.08) 50%,
+		rgba(255, 255, 255, 0.02) 65%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	animation: recipe-skeleton-shimmer 2.1s cubic-bezier(0.4, 0, 0.2, 1)
+		infinite;
+	will-change: transform;
+}
+
+.recipe-skeleton:nth-child(2n) .recipe-skeleton__image::after {
+	animation-delay: 180ms;
+}
+
+.recipe-skeleton:nth-child(3n) .recipe-skeleton__image::after {
+	animation-delay: 320ms;
+}
+
+@keyframes recipe-skeleton-shimmer {
+	0% {
+		transform: translateX(-140%) skewX(-14deg);
+	}
+	100% {
+		transform: translateX(260%) skewX(-14deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.recipe-skeleton__image::after {
+		animation: none;
+	}
+}
