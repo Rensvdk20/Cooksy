@@ -1,15 +1,18 @@
-import prisma from '~/lib/prisma';
-import { User } from '~/schemas/user/userSchema';
-import { credentialsSchema } from '~/schemas/auth/authSchema';
+import prisma from "~/lib/prisma";
+import { User } from "~/schemas/user/userSchema";
+import { credentialsSchema } from "~/schemas/auth/authSchema";
 
 export default defineEventHandler(async (event) => {
-	const { email, password } = await readValidatedBody(event, credentialsSchema.parse)
+	const { email, password } = await readValidatedBody(
+		event,
+		credentialsSchema.parse,
+	);
 
 	const user = await prisma.user.findUnique({
-		where: { email }
+		where: { email },
 	});
 
-	if(user && (await verifyPassword(user.password, password))) {
+	if (user && (await verifyPassword(user.password, password))) {
 		await setUserSession(event, {
 			user: {
 				id: user.id,
@@ -21,10 +24,10 @@ export default defineEventHandler(async (event) => {
 		});
 
 		return {};
-	};
+	}
 
 	throw createError({
 		statusCode: 401,
-		message: 'Invalid email or password'
+		message: "Invalid email or password",
 	});
 });

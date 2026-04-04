@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { Step } from '~/types/recipe';
+import type { Step } from "~/types/recipe";
 
 defineProps<{
-	step: Step
+	step: Step;
 }>();
 </script>
 <template>

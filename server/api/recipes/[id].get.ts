@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
 	if (!id) {
 		throw createError({
 			statusCode: 400,
-			statusMessage: 'Recipe id is required'
+			statusMessage: "Recipe id is required",
 		});
 	}
 
@@ -14,24 +14,24 @@ export default defineEventHandler(async (event) => {
 		include: {
 			ingredientBlocks: {
 				include: {
-					ingredients: true
+					ingredients: true,
 				},
 				orderBy: {
-					order: 'asc'
-				}
+					order: "asc",
+				},
 			},
 			steps: {
 				orderBy: {
-					order: 'asc'
-				}
-			}
-		}
+					order: "asc",
+				},
+			},
+		},
 	});
 
 	if (!recipe) {
 		throw createError({
 			statusCode: 404,
-			statusMessage: 'Recipe not found'
+			statusMessage: "Recipe not found",
 		});
 	}
 

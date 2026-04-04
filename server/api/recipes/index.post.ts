@@ -1,6 +1,9 @@
 import prisma from "~/lib/prisma";
 
-import { EditRecipe, editRecipeSchema } from "~/schemas/recipe/editRecipeSchema";
+import {
+	EditRecipe,
+	editRecipeSchema,
+} from "~/schemas/recipe/editRecipeSchema";
 
 export default defineEventHandler(async (event) => {
 	await auth(event);
@@ -14,7 +17,7 @@ export default defineEventHandler(async (event) => {
 
 		throw createError({
 			statusCode: 400,
-			statusMessage: firstParseError.message
+			statusMessage: firstParseError.message,
 		});
 	}
 

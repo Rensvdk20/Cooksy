@@ -1,5 +1,5 @@
-import type { User as AppUser } from '~/schemas/user/userSchema';
+import type { User as AppUser } from "~/schemas/user/userSchema";
 
-declare module '#auth-utils' {
+declare module "#auth-utils" {
 	interface User extends AppUser {}
 }

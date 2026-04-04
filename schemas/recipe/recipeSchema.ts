@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const ingredientSchema = z.object({
 	id: z.string().uuid(),
@@ -33,4 +33,4 @@ export const recipeSchema = z.object({
 export type Ingredient = z.infer<typeof ingredientSchema>;
 export type IngredientBlock = z.infer<typeof ingredientBlockSchema>;
 export type Step = z.infer<typeof stepSchema>;
-export type Recipe = z.infer<typeof recipeSchema>
+export type Recipe = z.infer<typeof recipeSchema>;

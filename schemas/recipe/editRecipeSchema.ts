@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const editIngredientSchema = z.object({
 	id: z.string().uuid().optional(),

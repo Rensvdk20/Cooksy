@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Ingredient } from '~/types/recipe';
+import type { Ingredient } from "~/types/recipe";
 
 defineProps<{
-	ingredient: Ingredient
+	ingredient: Ingredient;
 }>();
 </script>
 

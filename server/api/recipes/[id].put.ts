@@ -1,6 +1,9 @@
 import prisma from "~/lib/prisma";
 
-import { EditRecipe, editRecipeSchema } from "~/schemas/recipe/editRecipeSchema";
+import {
+	EditRecipe,
+	editRecipeSchema,
+} from "~/schemas/recipe/editRecipeSchema";
 
 export default defineEventHandler(async (event) => {
 	await auth(event);
@@ -9,7 +12,7 @@ export default defineEventHandler(async (event) => {
 	if (!id) {
 		throw createError({
 			statusCode: 400,
-			statusMessage: 'Recipe id is required'
+			statusMessage: "Recipe id is required",
 		});
 	}
 
@@ -22,20 +25,20 @@ export default defineEventHandler(async (event) => {
 
 		throw createError({
 			statusCode: 400,
-			statusMessage: firstParseError.message
+			statusMessage: firstParseError.message,
 		});
 	}
 
 	const recipe: EditRecipe = parsedRecipe.data;
 
 	const foundRecipe = await prisma.recipe.findUnique({
-		where: { id }
+		where: { id },
 	});
 
-	if(!foundRecipe) {
+	if (!foundRecipe) {
 		throw createError({
 			statusCode: 404,
-			statusMessage: 'Recipe not found'
+			statusMessage: "Recipe not found",
 		});
 	}
 
@@ -59,10 +62,11 @@ export default defineEventHandler(async (event) => {
 			where: { recipeId: id },
 			select: { id: true },
 		});
-		const incomingStepIds = recipe.steps
-			?.map(s => s.id)
-			.filter((id): id is string => typeof id === "string") ?? [];
-		const existingStepIds = existingSteps.map(s => s.id);
+		const incomingStepIds =
+			recipe.steps
+				?.map((s) => s.id)
+				.filter((id): id is string => typeof id === "string") ?? [];
+		const existingStepIds = existingSteps.map((s) => s.id);
 
 		// Delete removed steps
 		await tx.step.deleteMany({
@@ -74,7 +78,7 @@ export default defineEventHandler(async (event) => {
 
 		// Upsert steps
 		for (const step of recipe.steps || []) {
-			const order = (recipe.steps?.indexOf(step) ?? 0);
+			const order = recipe.steps?.indexOf(step) ?? 0;
 
 			if (step.id && existingStepIds.includes(step.id)) {
 				await tx.step.update({
@@ -104,10 +108,11 @@ export default defineEventHandler(async (event) => {
 			where: { recipeId: id },
 			include: { ingredients: true },
 		});
-		const incomingBlockIds = recipe.ingredientBlocks
-			?.map(b => b.id)
-			.filter((id): id is string => typeof id === "string") ?? [];
-		const existingBlockIds = existingBlocks.map(b => b.id);
+		const incomingBlockIds =
+			recipe.ingredientBlocks
+				?.map((b) => b.id)
+				.filter((id): id is string => typeof id === "string") ?? [];
+		const existingBlockIds = existingBlocks.map((b) => b.id);
 
 		// Delete removed blocks
 		await tx.ingredientBlock.deleteMany({
@@ -118,7 +123,7 @@ export default defineEventHandler(async (event) => {
 		});
 
 		for (const block of recipe.ingredientBlocks || []) {
-			const order = (recipe.ingredientBlocks?.indexOf(block) ?? 0);
+			const order = recipe.ingredientBlocks?.indexOf(block) ?? 0;
 
 			if (block.id && existingBlockIds.includes(block.id)) {
 				// Update existing block
@@ -131,10 +136,11 @@ export default defineEventHandler(async (event) => {
 				});
 
 				// Compare ingredients
-				const dbBlock = existingBlocks.find(b => b.id === block.id);
-				const dbIngredientIds = dbBlock?.ingredients.map(i => i.id) ?? [];
+				const dbBlock = existingBlocks.find((b) => b.id === block.id);
+				const dbIngredientIds =
+					dbBlock?.ingredients.map((i) => i.id) ?? [];
 				const incomingIngredientIds = block.ingredients
-					.map(i => i.id)
+					.map((i) => i.id)
 					.filter((id): id is string => typeof id === "string");
 
 				// Delete removed ingredients
@@ -147,7 +153,10 @@ export default defineEventHandler(async (event) => {
 
 				// Upsert ingredients
 				for (const ingredient of block.ingredients) {
-					if (ingredient.id && dbIngredientIds.includes(ingredient.id)) {
+					if (
+						ingredient.id &&
+						dbIngredientIds.includes(ingredient.id)
+					) {
 						await tx.ingredient.update({
 							where: { id: ingredient.id },
 							data: { name: ingredient.name },
@@ -169,7 +178,7 @@ export default defineEventHandler(async (event) => {
 						recipeId: id,
 						order: order,
 						ingredients: {
-							create: block.ingredients.map(ingredient => ({
+							create: block.ingredients.map((ingredient) => ({
 								name: ingredient.name,
 							})),
 						},

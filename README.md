@@ -4,6 +4,7 @@ Cooksy is a web application for managing my recipes, so I don't keep losing them
 This project is built with Nuxt 3 and integrates with services like ImageKit for media storage.
 
 ## Dashboard
+
 The dashboard allows easy editing of recipes without the usual constraints most recipe websites impose.<br />
 You can move blocks around and set them up exactly how you want.
 <br /><br />
@@ -11,17 +12,17 @@ You can move blocks around and set them up exactly how you want.
 
 ## Technologies
 
--   **[Nuxt 3](https://nuxt.com/)**
--   **[Vue 3](https://vuejs.org/)**
--   **[Typescript](https://www.typescriptlang.org/)**
--   **[Prisma](https://www.prisma.io/)**
--   **[Tailwind](https://tailwindcss.com/)**
--   **[Postgresql](https://www.postgresql.org/)**
+- **[Nuxt 3](https://nuxt.com/)**
+- **[Vue 3](https://vuejs.org/)**
+- **[Typescript](https://www.typescriptlang.org/)**
+- **[Prisma](https://www.prisma.io/)**
+- **[Tailwind](https://tailwindcss.com/)**
+- **[Postgresql](https://www.postgresql.org/)**
 
 ## Authentication & Security
 
--   **[Nuxt Auth Utils](https://github.com/atinux/nuxt-auth-utils)**
--   **[Nuxt Security](https://github.com/Baroshem/nuxt-security)**
+- **[Nuxt Auth Utils](https://github.com/atinux/nuxt-auth-utils)**
+- **[Nuxt Security](https://github.com/Baroshem/nuxt-security)**
 
 ## Requirements
 
@@ -31,22 +32,21 @@ You can move blocks around and set them up exactly how you want.
 
 ## Setup
 
--   Clone the repository:
+- Clone the repository:
 
     ```bash
     git clone https://github.com/Rensvdk20/Cooksy.git
     ```
 
--   Install dependencies:
+- Install dependencies:
 
     ```bash
     npm install
     ```
 
--   Set up environment variables:
-
-    -   Create a `.env` file in the root directory.
-    -   Add the following variables:
+- Set up environment variables:
+    - Create a `.env` file in the root directory.
+    - Add the following variables:
 
         ```properties
         # Database
@@ -61,7 +61,7 @@ You can move blocks around and set them up exactly how you want.
         IMAGEKIT_URL_ENDPOINT=<Your Imagekit url>
         ```
 
--   Set up the database
+- Set up the database
 
     ```bash
     npx prisma migrate dev
