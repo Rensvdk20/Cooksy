@@ -32,3 +32,8 @@ export type EditIngredient = z.infer<typeof editIngredientSchema>;
 export type EditIngredientBlock = z.infer<typeof editIngredientBlockSchema>;
 export type EditStep = z.infer<typeof editStepSchema>;
 export type EditRecipe = z.infer<typeof editRecipeSchema>;
+
+export type ImportRecipeResponse = {
+	recipe: Partial<EditRecipe>;
+	warnings: string[];
+};

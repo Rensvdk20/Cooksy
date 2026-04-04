@@ -4,6 +4,10 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
 	compatibilityDate: "2025-05-15",
 	devtools: { enabled: true },
+	runtimeConfig: {
+		geminiApiKey: process.env.GEMINI_API_KEY,
+		geminiModel: process.env.GEMINI_MODEL,
+	},
 	css: ["~/assets/css/main.css"],
 	app: {
 		head: {

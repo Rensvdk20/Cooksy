@@ -59,6 +59,10 @@ You can move blocks around and set them up exactly how you want.
         IMAGEKIT_PUBLIC_KEY=<Your Imagekit public key>
         IMAGEKIT_PRIVATE_KEY=<Your Imagekit private key>
         IMAGEKIT_URL_ENDPOINT=<Your Imagekit url>
+
+        # Gemini
+        GEMINI_API_KEY=<Your Gemini API key>
+        GEMINI_MODEL=gemini-2.5-flash
         ```
 
 - Set up the database
